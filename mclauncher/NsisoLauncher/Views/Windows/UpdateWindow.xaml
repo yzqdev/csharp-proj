@@ -1,0 +1,80 @@
+﻿<Controls:MetroWindow
+    x:Class="NsisoLauncher.Views.Windows.UpdateWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:local="clr-namespace:NsisoLauncher.Views.Windows"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="UpdateWindow"
+    Width="600"
+    Height="400"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <StackPanel>
+        <StackPanel Margin="10,10,10,0" Orientation="Horizontal">
+            <Label VerticalAlignment="Center" Content="{iconPacks:FontAwesome Kind=DownloadSolid, Width=36, Height=36}" />
+            <Label Content="启动器有新版本可供更新" FontSize="36" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label
+                Margin="10,0,0,0"
+                VerticalAlignment="Center"
+                Content="{iconPacks:FontAwesome Kind=HashtagSolid,
+                                                Width=16,
+                                                Height=16}" />
+            <Label Content="描述:" FontSize="16" />
+            <TextBlock
+                x:Name="descriptionLabel"
+                VerticalAlignment="Center"
+                FontSize="16" />
+        </StackPanel>
+        <StackPanel Margin="10,0,10,0" Orientation="Horizontal">
+            <Label VerticalAlignment="Center" Content="{iconPacks:FontAwesome Kind=IdCardAltSolid, Width=16, Height=16}" />
+            <Label Content="版本号:" FontSize="16" />
+            <TextBlock
+                x:Name="versionLabel"
+                VerticalAlignment="Center"
+                FontSize="16"
+                Text="0.0.0000.0000" />
+
+            <Label
+                Margin="10,0,0,0"
+                VerticalAlignment="Center"
+                Content="{iconPacks:FontAwesome Kind=ClockRegular,
+                                                Width=16,
+                                                Height=16}" />
+            <Label Content="更新时间:" FontSize="16" />
+            <TextBlock
+                x:Name="timeLabel"
+                VerticalAlignment="Center"
+                FontSize="16"
+                Text="0000/00/00" />
+        </StackPanel>
+        <TextBox
+            x:Name="infoTextbox"
+            Height="190"
+            Margin="10,5,10,0"
+            IsReadOnly="True" />
+        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+            <CheckBox
+                x:Name="noCheckBox"
+                Margin="0,10,20,10"
+                Content="不再自动检查更新" />
+            <Button
+                Width="100"
+                Margin="0,10,10,10"
+                Click="Button_Click"
+                Content="忽略"
+                Style="{DynamicResource MahApps.Styles.Button.Square}" />
+            <Button
+                Width="150"
+                Margin="0,10,10,10"
+                Click="UpdateButton_Click"
+                Content="前往下载"
+                Style="{StaticResource MahApps.Styles.Button.Square.Accent}" />
+        </StackPanel>
+    </StackPanel>
+</Controls:MetroWindow>

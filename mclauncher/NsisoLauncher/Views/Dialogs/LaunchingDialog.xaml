@@ -1,0 +1,34 @@
+﻿<dialog:CustomDialog
+    x:Class="NsisoLauncher.Views.Dialogs.LaunchingDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+    xmlns:local="clr-namespace:NsisoLauncher.Views.Dialogs"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:NsisoLauncher.ViewModels.Dialogs"
+    d:DataContext="{d:DesignInstance Type=vm:LaunchingDialogViewModel,
+                                     IsDesignTimeCreatable=True}"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <StackPanel Margin="10">
+        <Label
+            HorizontalAlignment="Center"
+            Content="{StaticResource String.Mainwindow.Launching}"
+            FontSize="24" />
+        <controls:ProgressRing Margin="0,20,0,10" />
+        <TextBlock HorizontalAlignment="Center" Text="{Binding State}" />
+        <TextBlock
+            HorizontalAlignment="Center"
+            Foreground="{DynamicResource GrayNormalBrush}"
+            Text="{Binding LogLine}"
+            TextWrapping="NoWrap" />
+        <Button
+            Margin="0,15,0,10"
+            Padding="20,0"
+            HorizontalAlignment="Center"
+            Command="{Binding CancelLaunchingCommand}"
+            Content="取消启动" />
+    </StackPanel>
+</dialog:CustomDialog>
