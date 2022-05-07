@@ -1,0 +1,49 @@
+﻿<Window
+    x:Class="TopMostApp.SettingView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:local="clr-namespace:TopMostApp"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="设置"
+    Width="800"
+    Height="800"
+    d:DataContext="{Binding settingViewModel, RelativeSource={RelativeSource Self}}"
+    mc:Ignorable="d">
+
+    <StackPanel Margin="10,10,10,10">
+        <GroupBox
+            HorizontalContentAlignment="Left"
+            Header="{DynamicResource SettingsLanguageTitle}"
+            Style="{StaticResource GroupBoxOriginal}">
+            <ComboBox
+                x:Name="langComboBox"
+                hc:InfoElement.Placeholder="{DynamicResource LangPlaceholder}"
+                DisplayMemberPath="NameNative"
+                IsSynchronizedWithCurrentItem="True"
+                ItemsSource="{Binding Langs}"
+                SelectedItem="{Binding LangInfo}" />
+
+        </GroupBox>
+        <GroupBox
+            HorizontalContentAlignment="Left"
+            Header="{DynamicResource Settings.Other.GlobalSettingLabel}"
+            Style="{StaticResource GroupBoxOriginal}">
+            <StackPanel>
+                <CheckBox
+                    Margin="10,5,10,5"
+                    Content="{DynamicResource Settings.Other.StartupButton}"
+                    IsChecked="True" />
+                <Button Content="管理" />
+                <Button Content="管理" />
+            </StackPanel>
+        </GroupBox>
+        <GroupBox
+            HorizontalContentAlignment="Left"
+            Header="{DynamicResource SettingsHotKeysTitle}"
+            Style="{StaticResource GroupBoxOriginal}">
+            <Label Content="hhh" />
+        </GroupBox>
+    </StackPanel>
+</Window>

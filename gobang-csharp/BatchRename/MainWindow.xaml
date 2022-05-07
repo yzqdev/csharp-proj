@@ -1,0 +1,71 @@
+﻿<Window
+    x:Class="BatchRename.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BatchRename"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="MainWindow"
+    Width="800"
+    Height="450"
+    mc:Ignorable="d">
+    <StackPanel>
+        <Menu>
+            <MenuItem Header="文件">
+                <MenuItem Click="OpenFolderMenuItem_Click" Header="打开文件夹" />
+                <MenuItem Header="退出" />
+            </MenuItem>
+            <MenuItem Header="编辑">
+                <MenuItem Header="重命名" />
+                <MenuItem Header="清空内容" />
+            </MenuItem>
+            <MenuItem Header="帮助">
+                <MenuItem Header="关于" />
+            </MenuItem>
+        </Menu>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Label
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="10,10,10,10"
+                Content="当前目录" />
+            <TextBox
+                x:Name="CurDirTextBox"
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="10,10,10,10"
+                Text="啊啊啊" />
+            <Border
+                Grid.Row="1"
+                Grid.Column="0"
+                Padding="10,10,10,10">
+                <StackPanel>
+                    <Label Content="重命名方式" />
+                    <ComboBox>
+                        <ComboBoxItem>ComboBox Item #1</ComboBoxItem>
+                        <ComboBoxItem IsSelected="True">ComboBox Item #2</ComboBoxItem>
+                        <ComboBoxItem>ComboBox Item #3</ComboBoxItem>
+                    </ComboBox>
+                    <Label Content="重命名文本" />
+                    <TextBox />
+                    <TextBox />
+                    <TextBox />
+                </StackPanel>
+            </Border>
+            <Border
+                Grid.Row="1"
+                Grid.Column="1"
+                Padding="10,10,10,10">
+                <ListBox x:Name="FileListLbox" />
+            </Border>
+        </Grid>
+    </StackPanel>
+</Window>

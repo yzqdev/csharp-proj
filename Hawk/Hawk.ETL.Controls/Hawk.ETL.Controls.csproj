@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <OutputType>Library</OutputType>
+    <ExpressionBlendVersion>4.0.20621.0</ExpressionBlendVersion>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <UseWPF>true</UseWPF>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <OutputPath>..\Bin\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationFramework.Aero" />
+    <Reference Include="System.Windows.Controls.WpfPropertyGrid, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Includes\System.Windows.Controls.WpfPropertyGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Xceed.Wpf.DataGrid">
+      <HintPath>..\Includes\Xceed.Wpf.DataGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit">
+      <HintPath>..\Includes\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Hawk.Core\Hawk.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="HockeySDK.WPF">
+      <Version>4.1.6</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\微信公众平台.jpg" />
+    <Resource Include="Images\支付宝捐赠.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="PropertyEditViewer.xaml.cs" />
+    <Page Remove="DataManager.xaml" />
+    <Page Remove="PropertyEditViewer.xaml" />
+  </ItemGroup>
+</Project>

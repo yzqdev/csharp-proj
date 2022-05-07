@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+ 
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="LiveChartsCore.SkiaSharpView" Version="2.0.0-beta.90" />
+	</ItemGroup>
+
+</Project>

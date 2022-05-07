@@ -1,0 +1,179 @@
+﻿<Window
+    x:Class="ChromeUpdater.BasicWPFUI.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ChromeUpdater.BasicWPFUI"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:updater="clr-namespace:ChromeUpdater.Core;assembly=ChromeUpdater.Core"
+    Title="{Binding Title}"
+    Width="813"
+    Height="500"
+    Loaded="MainWindow_OnLoaded"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Window.DataContext>
+        <updater:ChromeUpdaterCore />
+    </Window.DataContext>
+    <Window.Resources>
+        <ObjectDataProvider
+            x:Key="dBranch"
+            MethodName="GetValues"
+            ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="updater:Branch" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Window.Resources>
+    <Grid>
+        <Grid.Resources>
+            <local:InvertBoolConverter x:Key="InvertBoolConverter" />
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="45" />
+                </Grid.ColumnDefinitions>
+                <TextBox
+                    Name="txtChromePath"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Margin="10,5,10,5"
+                    IsEnabled="{Binding IsBusy, Converter={StaticResource InvertBoolConverter}}"
+                    Text="{Binding SelectedPath, Mode=TwoWay}" />
+                <Button
+                    Grid.Column="1"
+                    Width="30"
+                    Height="25"
+                    Command="{Binding CmdFolderBrowse}"
+                    Content="..." />
+            </Grid>
+            <Button
+                Name="BtnQuery"
+                Grid.Row="0"
+                Grid.Column="1"
+                Width="100"
+                Height="27"
+                Margin="0,5,10,5"
+                Command="{Binding CmdCheckUpdate, Mode=OneWay}"
+                CommandParameter="{Binding ElementName=cmbBranch, Path=Text}"
+                Content="查询"
+                IsEnabled="{Binding IsBusy, Converter={StaticResource InvertBoolConverter}}" />
+            <GroupBox
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="10,5,10,5"
+                Header="查询结果"
+                IsEnabled="{Binding IsBusy, Converter={StaticResource InvertBoolConverter}}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="{Binding UpdateInfo}" />
+                    <ListBox
+                        x:Name="lstResult"
+                        Grid.Row="1"
+                        ItemsSource="{Binding UpdateInfo.url}">
+                        <ListBox.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem
+                                    x:Name="mnuCopy"
+                                    Command="{Binding CmdCopyToClipboard, Mode=OneWay}"
+                                    CommandParameter="{Binding ElementName=lstResult, Path=SelectedItem}"
+                                    Header="复制"
+                                    IsEnabled="{Binding IsBusy, Converter={StaticResource InvertBoolConverter}}" />
+                                <MenuItem
+                                    x:Name="mnuDownload"
+                                    Command="{Binding CmdDownload, Mode=OneWay}"
+                                    CommandParameter="{Binding ElementName=lstResult, Path=SelectedItem}"
+                                    Header="仅下载"
+                                    IsEnabled="{Binding IsBusy, Converter={StaticResource InvertBoolConverter}}" />
+                                <MenuItem
+                                    x:Name="mnuExtract"
+                                    Command="{Binding CmdDownloadAndExtract, Mode=OneWay}"
+                                    CommandParameter="{Binding ElementName=lstResult, Path=SelectedItem}"
+                                    Header="下载&amp;解压"
+                                    IsEnabled="{Binding IsBusy, Converter={StaticResource InvertBoolConverter}}" />
+                            </ContextMenu>
+                        </ListBox.ContextMenu>
+                    </ListBox>
+                </Grid>
+            </GroupBox>
+            <GroupBox
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="0,5,10,5"
+                Header="选项"
+                IsEnabled="{Binding IsBusy, Converter={StaticResource InvertBoolConverter}}">
+                <StackPanel>
+                    <Label
+                        Margin="0,15,0,0"
+                        Content="架构："
+                        FontSize="15" />
+                    <CheckBox Name="chkArch" IsChecked="{Binding IsX64Selected}">
+                        <CheckBox.Style>
+                            <Style TargetType="{x:Type CheckBox}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=chkArch, Path=IsChecked}" Value="True">
+                                        <Setter Property="Content" Value="X64" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding ElementName=chkArch, Path=IsChecked}" Value="False">
+                                        <Setter Property="Content" Value="X86" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </CheckBox.Style>
+                    </CheckBox>
+                    <Label
+                        Margin="0,15,0,0"
+                        Content="分支："
+                        FontSize="15" />
+                    <ComboBox
+                        x:Name="cmbBranch"
+                        Width="80"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        IsEditable="False"
+                        ItemsSource="{Binding Source={StaticResource dBranch}}"
+                        SelectedItem="{Binding BranchSelected}" />
+                </StackPanel>
+            </GroupBox>
+        </Grid>
+        <ProgressBar
+            x:Name="PBarV"
+            Grid.Row="2"
+            Height="10"
+            Margin="10,5,10,5"
+            Visibility="{Binding Path=IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}"
+            Value="{Binding DownloadPercent}">
+            <ProgressBar.Style>
+                <Style TargetType="{x:Type ProgressBar}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding DownloadPercent}" Value="-1">
+                            <Setter Property="IsIndeterminate" Value="True" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding DownloadPercent}" Value="0">
+                            <Setter Property="IsIndeterminate" Value="False" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ProgressBar.Style>
+        </ProgressBar>
+    </Grid>
+</Window>

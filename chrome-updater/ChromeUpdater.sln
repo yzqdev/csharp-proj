@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChromeUpdater.Core", "ChromeUpdaterCore\ChromeUpdater.Core.csproj", "{F51105DC-8B81-46AC-BD83-DD1139E398F7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChromeUpdater.ArthasUI", "ChromeUpdater.ArthasUI\ChromeUpdater.ArthasUI.csproj", "{56D33FBA-FDC4-4D62-A7A5-B0E2EF0C6039}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChromeUpdater.BasicWPFUI", "ChromeUpdater.BasicWPFUI\ChromeUpdater.BasicWPFUI.csproj", "{039D5EAF-08EC-42BB-BFEA-A451853F27C6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChromeUpdater.Console", "ChromeUpdater.Console\ChromeUpdater.Console.csproj", "{967A6901-ADA6-477E-B641-DAA3B725C118}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arthas", "Arthas\Arthas.csproj", "{9D6B62B4-2AB4-4E06-806F-5DFDA2B54FC0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChromeUpdater.MahAppsUI", "ChromeUpdater.MahAppsUI\ChromeUpdater.MahAppsUI.csproj", "{5CBC2D0E-D030-4086-951F-BABE4E48F022}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F51105DC-8B81-46AC-BD83-DD1139E398F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F51105DC-8B81-46AC-BD83-DD1139E398F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F51105DC-8B81-46AC-BD83-DD1139E398F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F51105DC-8B81-46AC-BD83-DD1139E398F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56D33FBA-FDC4-4D62-A7A5-B0E2EF0C6039}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56D33FBA-FDC4-4D62-A7A5-B0E2EF0C6039}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56D33FBA-FDC4-4D62-A7A5-B0E2EF0C6039}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56D33FBA-FDC4-4D62-A7A5-B0E2EF0C6039}.Release|Any CPU.Build.0 = Release|Any CPU
+		{039D5EAF-08EC-42BB-BFEA-A451853F27C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{039D5EAF-08EC-42BB-BFEA-A451853F27C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{039D5EAF-08EC-42BB-BFEA-A451853F27C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{039D5EAF-08EC-42BB-BFEA-A451853F27C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{967A6901-ADA6-477E-B641-DAA3B725C118}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{967A6901-ADA6-477E-B641-DAA3B725C118}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{967A6901-ADA6-477E-B641-DAA3B725C118}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{967A6901-ADA6-477E-B641-DAA3B725C118}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D6B62B4-2AB4-4E06-806F-5DFDA2B54FC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D6B62B4-2AB4-4E06-806F-5DFDA2B54FC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D6B62B4-2AB4-4E06-806F-5DFDA2B54FC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D6B62B4-2AB4-4E06-806F-5DFDA2B54FC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CBC2D0E-D030-4086-951F-BABE4E48F022}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CBC2D0E-D030-4086-951F-BABE4E48F022}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CBC2D0E-D030-4086-951F-BABE4E48F022}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CBC2D0E-D030-4086-951F-BABE4E48F022}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {20A61AFE-169B-4479-AED2-56BA00A72C88}
+	EndGlobalSection
+EndGlobal

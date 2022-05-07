@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+	  <ApplicationIcon>Logo.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Languages\en-GB.xml" />
+    <None Remove="Languages\nl-NL.xml" />
+    <None Remove="Languages\zh-cn.xml" />
+    <None Remove="Logo.ico" />
+  </ItemGroup>
+	<PropertyGroup>
+		<DebugType>embedded</DebugType>
+	</PropertyGroup>
+   
+	<ItemGroup>
+		<Resource Include="Logo.ico" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
+		<PackageReference Include="HandyControl" Version="3.3.0" />
+		<PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
+	</ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Lang\en-GB.xml" />
+    <EmbeddedResource Include="Languages\nl-NL.xml" />
+    <EmbeddedResource Include="Resources\Lang\zh-cn.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Resources\Lang\en-US.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>

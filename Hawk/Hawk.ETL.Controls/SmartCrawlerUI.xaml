@@ -1,0 +1,576 @@
+﻿<UserControl
+    x:Class="Hawk.ETL.Controls.SmartCrawlerUI"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
+    xmlns:attributes="clr-namespace:System.Windows.Controls.WpfPropertyGrid.Attributes;assembly=System.Windows.Controls.WpfPropertyGrid"
+    xmlns:connectors="clr-namespace:Hawk.Core.Connectors;assembly=Hawk.Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mvvm="clr-namespace:Hawk.Core.Utils.MVVM;assembly=Hawk.Core"
+    xmlns:wpfPropertyGrid="clr-namespace:System.Windows.Controls.WpfPropertyGrid;assembly=System.Windows.Controls.WpfPropertyGrid"
+    xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+    d:DesignHeight="630.667"
+    d:DesignWidth="943"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <wpfPropertyGrid:EnumValueConverter x:Key="enumValueConverter" />
+        <mvvm:BindingProxy x:Key="BindingProxy" Data="{Binding}" />
+        <DataTemplate x:Key="DataTemplate1">
+            <StackPanel Width="Auto" Orientation="Horizontal">
+                <CheckBox
+                    Margin="0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    IsChecked="{Binding IsSelected}" />
+                <TextBlock
+                    Margin="20,0,0,0"
+                    VerticalAlignment="Center"
+                    Text="{DynamicResource key_18}"
+                    TextWrapping="Wrap" />
+                <TextBox
+                    Width="120"
+                    Margin="5,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Text="{Binding Name}"
+                    TextWrapping="Wrap" />
+                <TextBlock
+                    Margin="20,0,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Text="XPath"
+                    TextWrapping="Wrap" />
+                <TextBox
+                    Width="Auto"
+                    MinWidth="200"
+                    Margin="5,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Text="{Binding XPath}"
+                    TextWrapping="Wrap"
+                    ToolTip="XPath" />
+            </StackPanel>
+        </DataTemplate>
+        <ItemsPanelTemplate x:Key="ItemsPanelTemplate1">
+            <WrapPanel IsItemsHost="True" />
+        </ItemsPanelTemplate>
+        <DataTemplate x:Key="DataTemplate2">
+            <StackPanel
+                Margin="3,0,8,0"
+                Opacity="0.6"
+                Orientation="Horizontal">
+                <Label
+                    Margin="0,0,8,0"
+                    VerticalAlignment="Center"
+                    Content="{Binding Name}"
+                    ToolTip="{Binding XPath}" />
+                <Button
+                    Width="10"
+                    Height="18"
+                    MinWidth="10"
+                    MinHeight="18"
+                    MaxWidth="10"
+                    MaxHeight="18"
+                    Margin="0"
+                    VerticalAlignment="Center"
+                    Background="#00DDDDDD"
+                    BorderThickness="0"
+                    Content="x"
+                    Style="{DynamicResource ButtonStyle1}" />
+            </StackPanel>
+        </DataTemplate>
+        <Style x:Key="ButtonFocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle
+                            Margin="2"
+                            SnapsToDevicePixels="true"
+                            Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
+                            StrokeDashArray="1 2"
+                            StrokeThickness="1" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <LinearGradientBrush x:Key="ButtonNormalBackground" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Offset="0" Color="#F3F3F3" />
+            <GradientStop Offset="0.5" Color="#EBEBEB" />
+            <GradientStop Offset="0.5" Color="#DDDDDD" />
+            <GradientStop Offset="1" Color="#CDCDCD" />
+        </LinearGradientBrush>
+        <SolidColorBrush x:Key="ButtonNormalBorder" Color="#FF707070" />
+        <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}" />
+            <Setter Property="Background" Value="{StaticResource ButtonNormalBackground}" />
+            <Setter Property="BorderBrush" Value="{StaticResource ButtonNormalBorder}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Padding" Value="1" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Microsoft_Windows_Themes:ButtonChrome
+                            x:Name="Chrome"
+                            RenderDefaulted="{TemplateBinding IsDefaulted}"
+                            RenderMouseOver="{TemplateBinding IsMouseOver}"
+                            RenderPressed="{TemplateBinding IsPressed}"
+                            SnapsToDevicePixels="true">
+                            <ContentPresenter
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                RecognizesAccessKey="True"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </Microsoft_Windows_Themes:ButtonChrome>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsKeyboardFocused" Value="true">
+                                <Setter TargetName="Chrome" Property="RenderDefaulted" Value="true" />
+                            </Trigger>
+                            <Trigger Property="ToggleButton.IsChecked" Value="true">
+                                <Setter TargetName="Chrome" Property="RenderPressed" Value="true" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="#ADADAD" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="178*" />
+        </Grid.RowDefinitions>
+        <Grid
+            Margin="0,10,8,12.38"
+            ToolTip="{DynamicResource crawler_url_desc}"
+            d:LayoutOverrides="Width">
+
+            <Label
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Content="{DynamicResource key_759}" />
+            <TextBox
+                Margin="80,0,300,0"
+                VerticalAlignment="Center"
+                wpfPropertyGrid:TextBoxExtender.CommitOnEnter="True"
+                Text="{Binding URL, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+            <StackPanel
+                Margin="0,0,12.16,0"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal"
+                d:LayoutOverrides="HorizontalAlignment">
+
+                <Button
+                    Width="70"
+                    Height="25"
+                    Margin="0,0,16,0"
+                    VerticalAlignment="Top"
+                    Command="{Binding}"
+                    Content="{Binding Text}"
+                    DataContext="{Binding Commands3[0]}" />
+                <Button
+                    Width="70"
+                    Height="25"
+                    Margin="0,0,8,0"
+                    VerticalAlignment="Top"
+                    Command="{Binding}"
+                    Content="{Binding Text}"
+                    DataContext="{Binding Commands2[2]}"
+                    ToolTip="{DynamicResource crawler_feellucky}" />
+                <Button
+                    Width="70"
+                    Height="25"
+                    Margin="0,0,8,0"
+                    VerticalAlignment="Top"
+                    Command="{Binding}"
+                    Content="{Binding Text}"
+                    DataContext="{Binding Commands2[3]}" />
+
+
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1" Margin="0,4,5,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*" />
+                <ColumnDefinition Width="0.5*" />
+            </Grid.ColumnDefinitions>
+            <TabControl>
+
+                <TabItem>
+                    <TabItem.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Offset="0" Color="#FFF0F0F0" />
+                            <GradientStop Color="#00E5E5E5" />
+                        </LinearGradientBrush>
+                    </TabItem.Background>
+                    <TabItem.Header>
+                        <StackPanel
+                            Margin="0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Orientation="Horizontal"
+                            d:LayoutOverrides="GridBox">
+                            <Rectangle
+                                Width="15"
+                                Height="15"
+                                Margin="0,0,10,0">
+                                <Rectangle.Fill>
+                                    <VisualBrush Stretch="Fill" Visual="{Binding ConverterParameter=page_code, Converter={StaticResource MetroConverter}, Mode=OneWay}" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                FontSize="16"
+                                TextWrapping="Wrap">
+                                <Run Language="zh-cn" Text="{DynamicResource key_760}" />
+                            </TextBlock>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <Grid Background="#FFE5E5E5">
+                        <TextBox
+                            x:Name="HTMLTextBox"
+                            Margin="0"
+                            x:FieldModifier="public"
+                            Background="{DynamicResource NormalBorderBrush}"
+                            ScrollViewer.CanContentScroll="True"
+                            Text="{Binding URLHTML}"
+                            TextWrapping="WrapWithOverflow"
+                            VerticalScrollBarVisibility="Auto"
+                            d:LayoutOverrides="Width, Height" />
+                    </Grid>
+                </TabItem>
+                <TabItem>
+                    <TabItem.Header>
+                        <StackPanel
+                            Margin="0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Orientation="Horizontal"
+                            d:LayoutOverrides="GridBox">
+                            <Rectangle
+                                Width="15"
+                                Height="15"
+                                Margin="0,0,10,0">
+                                <Rectangle.Fill>
+                                    <VisualBrush Stretch="Fill" Visual="{Binding ConverterParameter=ie, Converter={StaticResource MetroConverter}, Mode=OneWay}" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                FontSize="16"
+                                Text="{DynamicResource brower_view}"
+                                TextWrapping="Wrap" />
+                        </StackPanel>
+                    </TabItem.Header>
+                    <TabItem.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Offset="0" Color="#FFF0F0F0" />
+                            <GradientStop Offset="1" Color="#00E5E5E5" />
+                        </LinearGradientBrush>
+                    </TabItem.Background>
+                    <Grid Background="#FFE5E5E5">
+                        <wv2:WebView2 x:Name="windowsFormsHost" Margin="0" />
+                    </Grid>
+                </TabItem>
+            </TabControl>
+            <GridSplitter
+                Grid.Column="1"
+                Width="3.375"
+                Margin="-1.625,0,0,0"
+                HorizontalAlignment="Left" />
+            <ScrollViewer Grid.Column="1">
+                <StackPanel>
+                    <Grid Margin="18,8,8,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.3*" />
+                            <ColumnDefinition Width="0.7*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            Margin="0,0,0,2"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            TextWrapping="Wrap"
+                            d:LayoutOverrides="Height">
+                            <Run Text="{DynamicResource key_762}" />
+                        </TextBlock>
+                        <TextBox
+                            Grid.Column="1"
+                            Margin="8,0,0,0"
+                            wpfPropertyGrid:TextBoxExtender.CommitOnEnter="True"
+                            FontSize="16"
+                            Text="{Binding Name}"
+                            TextWrapping="Wrap"
+                            d:LayoutOverrides="Height" />
+                    </Grid>
+                    <GroupBox
+                        Height="180"
+                        MinHeight="115"
+                        Margin="8,8,8,0"
+                        Header="{DynamicResource key_763}"
+                        d:LayoutOverrides="Height">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.3*" />
+                                <ColumnDefinition Width="0.7*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                Margin="8,42.5,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Text="{DynamicResource search_keyword}"
+                                TextWrapping="Wrap"
+                                ToolTip="{DynamicResource SmartCrawler_manual_mode}" />
+                            <TextBox
+                                Grid.Column="1"
+                                Margin="8,42.5,80,0"
+                                VerticalAlignment="Top"
+                                wpfPropertyGrid:TextBoxExtender.CommitOnEnter="True"
+                                Text="{Binding SelectText}"
+                                TextWrapping="Wrap" />
+                            <TextBlock
+                                Margin="8,78,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                TextWrapping="Wrap">
+                                <Run Language="zh-cn" Text="{DynamicResource key_765}" />
+                            </TextBlock>
+                            <TextBox
+                                Grid.Column="1"
+                                Height="40.907"
+                                Margin="8,76,3.509,0"
+                                VerticalAlignment="Top"
+                                Text="{Binding SelectXPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                TextWrapping="Wrap" />
+                            <Button
+                                Grid.Column="1"
+                                Width="50"
+                                Height="25"
+                                Margin="0,132.359,3.509,0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Command="{Binding}"
+                                Content="{Binding Text}"
+                                DataContext="{Binding Commands2[0]}"
+                                ToolTip="{DynamicResource crawler_url_desc}" />
+                            <Button
+                                Grid.Column="1"
+                                Width="50"
+                                Height="25"
+                                Margin="0,40.5,3.509,0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Command="{Binding}"
+                                Content="{Binding Text}"
+                                DataContext="{Binding Commands2[1]}" />
+                            <TextBlock
+                                Margin="8,132.361,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                TextWrapping="Wrap">
+                                <Run Language="zh-cn" Text="{DynamicResource key_766}" />
+                            </TextBlock>
+                            <TextBox
+                                Grid.Column="1"
+                                Margin="8,132.364,80,0"
+                                VerticalAlignment="Top"
+                                Text="{Binding SelectName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                TextWrapping="Wrap" />
+                            <TextBlock
+                                Margin="8,8,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Text="{DynamicResource key_188}"
+                                TextWrapping="Wrap" />
+                            <ComboBox
+                                Grid.Column="1"
+                                Margin="8,5.01,80,0"
+                                VerticalAlignment="Top"
+                                ItemsSource="{attributes:EnumValues {x:Type connectors:ScriptWorkMode}}"
+                                SelectedItem="{Binding IsMultiData}"
+                                ToolTip="{DynamicResource smartcrawler_script_mode}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding ., Converter={StaticResource enumValueConverter}}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox
+                        Height="150"
+                        Margin="8,8,8,0"
+                        Header="{DynamicResource key_767}">
+                        <Grid Margin="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.3*" />
+                                <ColumnDefinition Width="0.7*" />
+                            </Grid.ColumnDefinitions>
+
+
+                            <TextBlock
+                                Margin="6.759,10,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Text="{DynamicResource key_748}"
+                                TextWrapping="Wrap"
+                                ToolTip="{DynamicResource crawler_xpath_root}"
+                                d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" />
+                            <TextBox
+                                Grid.Column="1"
+                                Margin="8,8,80,0"
+                                VerticalAlignment="Top"
+                                Text="{Binding RootXPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                TextWrapping="Wrap"
+                                d:LayoutOverrides="VerticalAlignment" />
+                            <ComboBox
+                                Width="73.875"
+                                Margin="51.692,8,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                ItemsSource="{attributes:EnumValues {x:Type connectors:SelectorFormat}}"
+                                SelectedItem="{Binding RootFormat}"
+                                ToolTip="{DynamicResource key_750}"
+                                d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" />
+                            <TextBlock
+                                Margin="8,60,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Text="{Binding CrawlItems.Count, StringFormat=Total:\{0\}}" />
+                            <Button
+                                Grid.Column="1"
+                                Width="80"
+                                Height="25"
+                                Margin="8,60,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Command="{Binding}"
+                                Content="{Binding Text}"
+                                DataContext="{Binding Commands3[2]}"
+                                d:LayoutOverrides="VerticalAlignment" />
+                            <Button
+                                Grid.Column="1"
+                                Width="80"
+                                Height="25"
+                                Margin="136.8,60,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Command="{Binding}"
+                                Content="{Binding Text}"
+                                DataContext="{Binding Commands3[3]}" />
+
+                        </Grid>
+
+
+                    </GroupBox>
+                    <GroupBox
+                        Height="200"
+                        Margin="8,8,8,0"
+                        VerticalAlignment="Bottom"
+                        Header="{DynamicResource key_67}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.3*" />
+                                <ColumnDefinition Width="0.7*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                Margin="8,8,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Text="{DynamicResource key_647}"
+                                TextWrapping="Wrap"
+                                ToolTip="{DynamicResource crawler_share_cookie}" />
+                            <ComboBox
+                                Grid.Column="1"
+                                Margin="8,5.01,80,0"
+                                VerticalAlignment="Top"
+                                DataContext="{Binding ShareCookie}"
+                                ItemsSource="{Binding Collection}"
+                                SelectedItem="{Binding _SelectItem}"
+                                ToolTip="{DynamicResource crawler_share_cookie}" />
+                            <TextBlock
+                                Margin="8,42.5,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Text="{DynamicResource key_645}"
+                                TextWrapping="Wrap"
+                                ToolTip="{DynamicResource crawler_super_mode}" />
+                            <CheckBox
+                                Grid.Column="1"
+                                Margin="8,42.5,80,0"
+                                VerticalAlignment="Top"
+                                IsChecked="{Binding IsSuperMode}"
+                                ToolTip="{DynamicResource crawler_super_mode}" />
+                            <Button
+                                Grid.Column="1"
+                                Width="80"
+                                Height="25"
+                                Margin="8,78,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Command="{Binding}"
+                                Content="{Binding Text}"
+                                DataContext="{Binding Commands[0]}"
+                                ToolTip="{DynamicResource crawler_dynamic_sniff}" />
+                            <Button
+                                Grid.Column="1"
+                                Width="80"
+                                Height="25"
+                                Margin="136.8,78,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Command="{Binding}"
+                                Content="{Binding Text}"
+                                DataContext="{Binding Commands[1]}" />
+                            <TextBlock
+                                Margin="8,78,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                TextWrapping="Wrap"
+                                ToolTip="{DynamicResource crawler_dynamic_sniff}">
+                                <Run Language="zh-cn" Text="{DynamicResource key_769}" />
+                            </TextBlock>
+                            <Button
+                                Grid.Column="1"
+                                Width="80"
+                                Height="25"
+                                Margin="8,114.666,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Command="{Binding}"
+                                Content="{Binding Text}"
+                                DataContext="{Binding Commands[2]}" />
+                            <TextBlock
+                                Margin="8,114.666,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                TextWrapping="Wrap">
+                                <Run Language="zh-cn" Text="{DynamicResource http_header}" />
+                            </TextBlock>
+                        </Grid>
+                    </GroupBox>
+                </StackPanel>
+
+
+            </ScrollViewer>
+
+
+        </Grid>
+
+
+    </Grid>
+</UserControl>

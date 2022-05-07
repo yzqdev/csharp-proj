@@ -1,0 +1,14 @@
+.user
+bin/ 
+obj/
+*.pdb
+*.xml
+packages/
+.suo
+.DS_Store
+.vs/
+*.suo
+Hawk.Core/Hawk.Core.suo
+Docs/hawk
+Docs/img/
+Hawk.Core/UpgradeLog*
