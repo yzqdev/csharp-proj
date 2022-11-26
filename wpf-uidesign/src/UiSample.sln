@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29920.165
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample1", "Sample1\Sample1.csproj", "{E08C5273-173C-40C9-B5EA-0511CB89D75D}"
 EndProject
@@ -18,6 +18,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample7", "Sample7\Sample7.csproj", "{599D8090-F9BD-4554-9431-2DC52BC380AD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample8", "Sample8\Sample8.csproj", "{8DE43A42-C883-48AD-9F6D-9C2C3C25EAC8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dashboard", "WPF-Social-Media-Info-Dashboard\Dashboard.csproj", "{2CC87E66-3FAD-43E4-8FE3-BD4129CBF020}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,11 +59,15 @@ Global
 		{8DE43A42-C883-48AD-9F6D-9C2C3C25EAC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DE43A42-C883-48AD-9F6D-9C2C3C25EAC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DE43A42-C883-48AD-9F6D-9C2C3C25EAC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CC87E66-3FAD-43E4-8FE3-BD4129CBF020}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CC87E66-3FAD-43E4-8FE3-BD4129CBF020}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CC87E66-3FAD-43E4-8FE3-BD4129CBF020}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CC87E66-3FAD-43E4-8FE3-BD4129CBF020}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {5E23B08F-D2A9-48C5-B976-7D0C7960D87B}
+		SolutionGuid = {4BA49BCD-D143-4169-8012-86E47B971B0C}
 	EndGlobalSection
 EndGlobal

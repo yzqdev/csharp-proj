@@ -54,10 +54,11 @@ namespace NsisoLauncherCore.Net.PhalAPI
         public async Task PostLogAsync(Modules.LogLevel level, string log)
         {
             var escapeLog = Uri.EscapeDataString(log);
-            Dictionary<string, string> args = new Dictionary<string, string>();
-            args.Add("app_key", App_key);
-            args.Add("super_type", level.ToString());
-            args.Add("super_message", log);
+            Dictionary<string, string> args = new() {
+                { "app_key", App_key },
+                { "super_type", level.ToString() },
+                { "super_message", log }
+            };
             var result = await APIRequester.HttpPostReadAsStringForString(APIUrl + "?s=App.Market_SuperLogger.Record", args);
             Console.WriteLine(result);
         }

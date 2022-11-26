@@ -26,10 +26,11 @@ namespace NsisoLauncherCore.Net
             
             try
             {
-                using (HttpClient client = new HttpClient())
-                {
-                    return await client.GetStringAsync(uri);
-                }
+                var httpClientHandler = new HttpClientHandler {
+                    ServerCertificateCustomValidationCallback = (message, certificate2, arg3, arg4) => true
+                };
+                using HttpClient client = new(httpClientHandler);
+                return await client.GetStringAsync(uri);
             }
             catch (TaskCanceledException)
             {
