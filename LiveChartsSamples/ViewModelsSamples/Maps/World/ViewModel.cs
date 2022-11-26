@@ -1,105 +1,82 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using LiveChartsCore.Geo;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Drawing.Geometries;
 
-namespace ViewModelsSamples.Maps.World
+namespace ViewModelsSamples.Maps.World;
+
+[ObservableObject]
+public  partial class ViewModel
 {
-    public class ViewModel
+    private bool _isBrazilInChart = true;
+    private readonly IWeigthedMapLand _brazil;
+    private readonly Random _r = new();
+
+    public ViewModel()
     {
-        private bool _isBrazilInChart = true;
-        private readonly IWeigthedMapShape _brazil;
-        private readonly Random _r = new Random();
-
-        public ViewModel()
+        // every country has a unique identifier
+        // check the "shortName" property in the following
+        // json file to assign a value to a country in the heat map
+        // https://github.com/beto-rodriguez/LiveCharts2/blob/master/docs/_assets/word-map-index.json
+        var lands = new HeatLand[]
         {
-            Series = new HeatLandSeries[]
-            {
-                new HeatLandSeries
-                {
-                    // every country has a unique identifier
-                    // check the "shortName" property in the following
-                    // json file to assign a value to a country in the heat map
-                    // https://github.com/beto-rodriguez/LiveCharts2/blob/master/docs/_assets/word-map-index.json
-                    Lands = new HeatLand[]
-                    {
-                        new HeatLand { Name = "bra", Value = 13 },
-                        new HeatLand { Name = "mex", Value = 10 },
-                        new HeatLand { Name = "usa", Value = 15 },
-                        new HeatLand { Name = "can", Value = 8 },
-                        new HeatLand { Name = "ind", Value = 12 },
-                        new HeatLand { Name = "deu", Value = 13 },
-                        new HeatLand { Name= "jpn", Value = 15 },
-                        new HeatLand { Name = "chn", Value = 14 },
-                        new HeatLand { Name = "rus", Value = 11 },
-                        new HeatLand { Name = "fra", Value = 8 },
-                        new HeatLand { Name = "esp", Value = 7 },
-                        new HeatLand { Name = "kor", Value = 10 },
-                        new HeatLand { Name = "zaf", Value = 12 },
-                        new HeatLand { Name = "are", Value = 13 }
-                    }
-                }
-            };
-
-            _brazil = Series[0].Lands.First(x => x.Name == "bra");
-            DoRandomChanges();
-        }
-
-        public HeatLandSeries[] Series { get; set; }
-
-        #region Obsolete
-
-        public IWeigthedMapShape[] Shapes => new HeatLand[]
-        {
-            new HeatLand { Name = "bra", Value = 13 },
-            new HeatLand { Name = "mex", Value = 10 },
-            new HeatLand { Name = "usa", Value = 15 },
-            new HeatLand { Name = "can", Value = 8 },
-            new HeatLand { Name = "ind", Value = 12 },
-            new HeatLand { Name = "deu", Value = 13 },
-            new HeatLand { Name= "jpn", Value = 15 },
-            new HeatLand { Name = "chn", Value = 14 },
-            new HeatLand { Name = "rus", Value = 11 },
-            new HeatLand { Name = "fra", Value = 8 },
-            new HeatLand { Name = "esp", Value = 7 },
-            new HeatLand { Name = "kor", Value = 10 },
-            new HeatLand { Name = "zaf", Value = 12 },
-            new HeatLand { Name = "are", Value = 13 }
+            new() { Name = "bra", Value = 13 },
+            new() { Name = "mex", Value = 10 },
+            new() { Name = "usa", Value = 15 },
+            new() { Name = "can", Value = 8 },
+            new() { Name = "ind", Value = 12 },
+            new() { Name = "deu", Value = 13 },
+            new() { Name= "jpn", Value = 15 },
+            new() { Name = "chn", Value = 14 },
+            new() { Name = "rus", Value = 11 },
+            new() { Name = "fra", Value = 8 },
+            new() { Name = "esp", Value = 7 },
+            new() { Name = "kor", Value = 10 },
+            new() { Name = "zaf", Value = 12 },
+            new() { Name = "are", Value = 13 }
         };
 
-        #endregion
+        Series = new HeatLandSeries[] { new HeatLandSeries { Lands = lands } };
 
-        public ICommand ToggleBrazilCommand => new Command(o => ToggleBrazil());
+        _brazil = lands.First(x => x.Name == "bra");
+        DoRandomChanges();
+    }
 
-        private async void DoRandomChanges()
+    public HeatLandSeries[] Series { get; set; }
+
+    [ICommand]
+    public void ToggleBrazil()
+    {
+        var lands = Series[0].Lands;
+        if (lands is null) return;
+
+        if (_isBrazilInChart)
         {
-            await Task.Delay(1000);
-
-            while (true)
-            {
-                foreach (var shape in Series[0].Lands)
-                {
-                    shape.Value = _r.Next(0, 20);
-                }
-
-                await Task.Delay(500);
-            }
+            Series[0].Lands = lands.Where(x => x != _brazil).ToArray();
+            _isBrazilInChart = false;
+            return;
         }
 
-        private void ToggleBrazil()
+        Series[0].Lands = lands.Concat(new[] { _brazil }).ToArray();
+        _isBrazilInChart = true;
+    }
+
+    private async void DoRandomChanges()
+    {
+        await Task.Delay(1000);
+
+        while (true)
         {
-            if (_isBrazilInChart)
+            foreach (var shape in Series[0].Lands ?? Enumerable.Empty<IWeigthedMapLand>())
             {
-                Series[0].Lands = Series[0].Lands.Where(x => x != _brazil).ToArray();
-                _isBrazilInChart = false;
-                return;
+                shape.Value = _r.Next(0, 20);
             }
 
-            Series[0].Lands = Series[0].Lands.Concat(new[] { _brazil }).ToArray();
-            _isBrazilInChart = true;
+            await Task.Delay(500);
         }
     }
 }

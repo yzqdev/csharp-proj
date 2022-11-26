@@ -1,127 +1,109 @@
-﻿using LiveChartsCore;
+﻿using System;
+using System.Collections.Generic;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using LiveChartsCore;
 using LiveChartsCore.Drawing;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using LiveChartsCore.Themes;
 using SkiaSharp;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Windows.Input;
 
-namespace ViewModelsSamples.StepLines.Properties
+namespace ViewModelsSamples.StepLines.Properties;
+
+[ObservableObject]
+public partial class ViewModel
 {
-    public class ViewModel : INotifyPropertyChanged
+    private readonly LvcColor[] _colors = ColorPalletes.FluentDesign;
+    private readonly Random _random = new();
+    private StepLineSeries<double> _lineSeries;
+    private int _currentColor = 0;
+
+    public ViewModel()
     {
-        private readonly LvcColor[] colors = ColorPalletes.FluentDesign;
-        private readonly Random random = new Random();
-        private StepLineSeries<double> lineSeries;
-        private int currentColor = 0;
-        private List<ISeries> series;
-
-        public ViewModel()
+        _lineSeries = new StepLineSeries<double>
         {
-            lineSeries = new StepLineSeries<double>
-            {
-                Values = new List<double> { -2, -1, 3, 5, 3, 4, 6 },
-            };
+            Values = new List<double> { -2, -1, 3, 5, 3, 4, 6 },
+        };
 
-            Series = new List<ISeries>
-            {
-                lineSeries
-            };
+        _series = new ISeries[] { _lineSeries };
+    }
+
+    [ObservableProperty]
+    private ISeries[] _series;
+
+    [ICommand]
+    public void ChangeValuesInstance()
+    {
+        var t = 0;
+        var values = new List<double>();
+        for (var i = 0; i < 10; i++)
+        {
+            t += _random.Next(-5, 10);
+            values.Add(t);
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        _lineSeries.Values = values;
+    }
 
-        public List<ISeries> Series { get => series; set { series = value; OnPropertyChanged(); } }
-
-        public void ChangeValuesInstance()
+    public void ChangeSeriesInstance()
+    {
+        _lineSeries = new StepLineSeries<double>
         {
-            var t = 0;
-            var values = new List<double>();
-            for (var i = 0; i < 10; i++)
-            {
-                t += random.Next(-5, 10);
-                values.Add(t);
-            }
+            Values = new List<double> { -2, -1, 3, 5, 3, 4, 6 },
+        };
 
-            lineSeries.Values = values;
-        }
+        Series = new ISeries[] { _lineSeries };
+    }
 
-        public void ChangeSeriesInstance()
-        {
-            lineSeries = new StepLineSeries<double>
-            {
-                Values = new List<double> { -2, -1, 3, 5, 3, 4, 6 },
-            };
+    [ICommand]
+    public void NewStroke()
+    {
+        var nextColorIndex = _currentColor++ % _colors.Length;
+        var color = _colors[nextColorIndex];
+        _lineSeries.Stroke = new SolidColorPaint(new SKColor(color.R, color.G, color.B)) { StrokeThickness = 3 };
+    }
 
-            Series = new List<ISeries>
-            {
-                lineSeries
-            };
-        }
+    [ICommand]
+    public void NewFill()
+    {
+        var nextColorIndex = _currentColor++ % _colors.Length;
+        var color = _colors[nextColorIndex];
 
-        public void NewStroke()
-        {
-            var nextColorIndex = currentColor++ % colors.Length;
-            var color = colors[nextColorIndex];
-            lineSeries.Stroke = new SolidColorPaint(new SKColor(color.R, color.G, color.B)) { StrokeThickness = 3 };
-        }
+        _lineSeries.Fill = new SolidColorPaint(new SKColor(color.R, color.G, color.B, 90));
+    }
 
-        public void NewFill()
-        {
-            var nextColorIndex = currentColor++ % colors.Length;
-            var color = colors[nextColorIndex];
+    [ICommand]
+    public void NewGeometryFill()
+    {
+        var nextColorIndex = _currentColor++ % _colors.Length;
+        var color = _colors[nextColorIndex];
 
-            lineSeries.Fill = new SolidColorPaint(new SKColor(color.R, color.G, color.B, 90));
-        }
+        _lineSeries.GeometryFill = new SolidColorPaint(new SKColor(color.R, color.G, color.B));
+    }
 
-        public void NewGeometryFill()
-        {
-            var nextColorIndex = currentColor++ % colors.Length;
-            var color = colors[nextColorIndex];
+    [ICommand]
+    public void NewGeometryStroke()
+    {
+        var nextColorIndex = _currentColor++ % _colors.Length;
+        var color = _colors[nextColorIndex];
 
-            lineSeries.GeometryFill = new SolidColorPaint(new SKColor(color.R, color.G, color.B));
-        }
+        _lineSeries.GeometryStroke = new SolidColorPaint(new SKColor(color.R, color.G, color.B)) { StrokeThickness = 3 };
+    }
 
-        public void NewGeometryStroke()
-        {
-            var nextColorIndex = currentColor++ % colors.Length;
-            var color = colors[nextColorIndex];
+    [ICommand]
+    public void IncreaseGeometrySize()
+    {
+        if (_lineSeries.GeometrySize == 60) return;
 
-            lineSeries.GeometryStroke = new SolidColorPaint(new SKColor(color.R, color.G, color.B)) { StrokeThickness = 3 };
-        }
+        _lineSeries.GeometrySize += 10;
+    }
 
-        public void IncreaseGeometrySize()
-        {
-            if (lineSeries.GeometrySize == 60) return;
+    [ICommand]
+    public void DecreaseGeometrySize()
+    {
+        if (_lineSeries.GeometrySize == 0) return;
 
-            lineSeries.GeometrySize += 10;
-        }
-
-        public void DecreaseGeometrySize()
-        {
-            if (lineSeries.GeometrySize == 0) return;
-
-            lineSeries.GeometrySize -= 10;
-        }
-
-        // The next commands are only to enable XAML bindings
-        // they are not used in the WinForms sample
-        public ICommand ChangeValuesInstanceCommand => new Command(o => ChangeValuesInstance());
-        public ICommand ChangeSeriesInstanceCommand => new Command(o => ChangeSeriesInstance());
-        public ICommand NewStrokeCommand => new Command(o => NewStroke());
-        public ICommand NewFillCommand => new Command(o => NewFill());
-        public ICommand NewGeometryFillCommand => new Command(o => NewGeometryFill());
-        public ICommand NewGeometryStrokeCommand => new Command(o => NewGeometryStroke());
-        public ICommand IncreaseGeometrySizeCommand => new Command(o => IncreaseGeometrySize());
-        public ICommand DecreseGeometrySizeCommand => new Command(o => DecreaseGeometrySize());
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        _lineSeries.GeometrySize -= 10;
     }
 }

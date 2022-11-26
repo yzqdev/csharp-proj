@@ -1,13 +1,21 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
- 
+    <TargetFramework></TargetFramework>
+	  <TargetFramework>net6.0-windows</TargetFramework>
+     
+
     <IsPackable>false</IsPackable>
+    <LangVersion>10.0</LangVersion>
+    <Nullable>Enable</Nullable>
   </PropertyGroup>
 
-	<ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0-preview3" />
+   
 		<PackageReference Include="LiveChartsCore.SkiaSharpView" Version="2.0.0-beta.600" />
+		<PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-beta.600" />
 	</ItemGroup>
+ 
 
 </Project>

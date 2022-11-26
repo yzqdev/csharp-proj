@@ -1,33 +1,33 @@
-﻿using LiveChartsCore;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using SkiaSharp;
-using System.Collections.Generic;
 
-namespace ViewModelsSamples.Lines.Area
+namespace ViewModelsSamples.Lines.Area;
+
+[ObservableObject]
+public partial class ViewModel
 {
-    public class ViewModel
+    public ISeries[] Series { get; set; } =
     {
-        public List<ISeries> Series { get; set; } = new List<ISeries>
+        new LineSeries<double>
         {
-            new LineSeries<double>
-            {
-                Values = new List<double> { -2, -1, 3, 5, 3, 4, 6 },
-                // Set he Fill property to build an area series
-                // by default the series has a fill color based on your app theme
-                Fill = new SolidColorPaint(SKColors.CornflowerBlue),
+            Values = new double[] { -2, -1, 3, 5, 3, 4, 6 },
+            // Set he Fill property to build an area series
+            // by default the series has a fill color based on your app theme
+            Fill = new SolidColorPaint(SKColors.CornflowerBlue), // mark
 
-                Stroke = null,
-                GeometryFill = null,
-                GeometryStroke = null
-            }
-        };
+            Stroke = null,
+            GeometryFill = null,
+            GeometryStroke = null
+        }
+    };
 
-        // Creates a gray background and border in the draw margin.
-        public DrawMarginFrame DrawMarginFrame => new DrawMarginFrame
-        {
-            Fill = new SolidColorPaint(new SKColor(220, 220, 220)),
-            Stroke = new SolidColorPaint(new SKColor(180, 180, 180), 1)
-        };
-    }
+    // Creates a gray background and border in the draw margin.
+    public DrawMarginFrame DrawMarginFrame => new()
+    {
+        Fill = new SolidColorPaint(new SKColor(220, 220, 220)),
+        Stroke = new SolidColorPaint(new SKColor(180, 180, 180), 1)
+    };
 }

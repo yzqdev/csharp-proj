@@ -1,122 +1,118 @@
-﻿using LiveChartsCore;
-using LiveChartsCore.Defaults;
-using LiveChartsCore.SkiaSharpView;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
+using System.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using LiveChartsCore;
+using LiveChartsCore.Defaults;
+using LiveChartsCore.SkiaSharpView;
 
-namespace ViewModelsSamples.Lines.AutoUpdate
+namespace ViewModelsSamples.Lines.AutoUpdate;
+
+[ObservableObject]
+public partial class ViewModel
 {
-    public class ViewModel
+    private readonly Random _random = new();
+    private readonly ObservableCollection<ObservableValue> _observableValues;
+
+    public ViewModel()
     {
-        private int _index = 0;
-        private readonly Random _random = new Random();
-        private readonly ObservableCollection<ObservablePoint> _observableValues;
-
-        public ViewModel()
+        // Use ObservableCollections to let the chart listen for changes (or any INotifyCollectionChanged). // mark
+        _observableValues = new ObservableCollection<ObservableValue>
         {
-            // using an INotifyCollectionChanged instance as your values collection
-            // will let the chart update every time a point is added, removed, replaced or the whole list was cleared
-            _observableValues = new ObservableCollection<ObservablePoint>
+            // Use the ObservableValue or ObservablePoint types to let the chart listen for property changes // mark
+            // or use any INotifyPropertyChanged implementation // mark
+            new ObservableValue(2),
+            new(5), // the ObservableValue type is redundant and inferred by the compiler (C# 9 and above)
+            new(4),
+            new(5),
+            new(2),
+            new(6),
+            new(6),
+            new(6),
+            new(4),
+            new(2),
+            new(3),
+            new(4),
+            new(3)
+        };
+
+        Series = new ObservableCollection<ISeries>
+        {
+            new LineSeries<ObservableValue>
             {
-                // using an object that implements INotifyPropertyChanged
-                // will allow the chart to update everytime a property in a point changes.
+                Values = _observableValues,
+                Fill = null
+            }
+        };
 
-                // LiveCharts already provides the ObservableValue class
-                // notice you can plot any type, but you must let LiveCharts know how to handle it
-                // for more info please see:
-                // https://github.com/beto-rodriguez/LiveCharts2/blob/master/samples/ViewModelsSamples/General/UserDefinedTypes/ViewModel.cs#L22
+        // in the following sample notice that the type int does not implement INotifyPropertyChanged
+        // and our Series.Values property is of type List<T>
+        // List<T> does not implement INotifyCollectionChanged
+        // this means the following series is not listening for changes.
+        // Series.Add(new ColumnSeries<int> { Values = new List<int> { 2, 4, 6, 1, 7, -2 } }); // mark
+    }
 
-                new ObservablePoint(_index++, 2),
-                new ObservablePoint(_index++, 5),
-                new ObservablePoint(_index++, 4),
-                new ObservablePoint(_index++, 5),
-                new ObservablePoint(_index++, 2),
-                new ObservablePoint(_index++, 6),
-                new ObservablePoint(_index++, 6),
-                new ObservablePoint(_index++, 6),
-                new ObservablePoint(_index++, 4),
-                new ObservablePoint(_index++, 2),
-                new ObservablePoint(_index++, 3),
-                new ObservablePoint(_index++, 4),
-                new ObservablePoint(_index++, 3)
-            };
+    public ObservableCollection<ISeries> Series { get; set; }
 
-            // using a collection that implements INotifyCollectionChanged as your series collection
-            // will allow the chart to update every time a series is added, removed, replaced or the whole list was cleared
-            // .Net already provides the System.Collections.ObjectModel.ObservableCollection class
-            Series = new ObservableCollection<ISeries>
+    [ICommand]
+    public void AddItem()
+    {
+        var randomValue = _random.Next(1, 10);
+        _observableValues.Add(new(randomValue));
+    }
+
+    [ICommand]
+    public void RemoveItem()
+    {
+        if (_observableValues.Count == 0) return;
+        _observableValues.RemoveAt(0);
+    }
+
+    [ICommand]
+    public void UpdateItem()
+    {
+        var randomValue = _random.Next(1, 10);
+
+        // we grab the last instance in our collection
+        var lastInstance = _observableValues[_observableValues.Count - 1];
+
+        // finally modify the value property and the chart is updated!
+        lastInstance.Value = randomValue;
+    }
+
+    [ICommand]
+    public void ReplaceItem()
+    {
+        var randomValue = _random.Next(1, 10);
+        var randomIndex = _random.Next(0, _observableValues.Count - 1);
+        _observableValues[randomIndex] = new(randomValue);
+    }
+
+    [ICommand]
+    public void AddSeries()
+    {
+        //  for this sample only 5 series are supported.
+        if (Series.Count == 5) return;
+
+        Series.Add(
+            new LineSeries<int>
             {
-                new LineSeries<ObservablePoint>
+                Values = new List<int>
                 {
-                    Values = _observableValues,
-                    Fill = null
+                    _random.Next(0, 10),
+                    _random.Next(0, 10),
+                    _random.Next(0, 10)
                 }
-            };
+            });
+    }
 
-            // in the following series notice that the type int does not implement INotifyPropertyChanged
-            // and our Series.Values collection is of type List<T>
-            // List<T> does not implement INotifyCollectionChanged
-            // this means the following series is not listening for changes.
-            //Series.Add(new LineSeries<int> { Values = new List<int> { 2, 4, 6, 1, 7, -2 } });
-        }
+    [ICommand]
+    public void RemoveSeries()
+    {
+        if (Series.Count == 1) return;
 
-        public ObservableCollection<ISeries> Series { get; set; }
-
-        public void AddItem()
-        {
-            var randomValue = _random.Next(1, 10);
-            _observableValues.Add(
-                new ObservablePoint { X = _index++, Y = randomValue });
-        }
-
-        public void RemoveFirstItem()
-        {
-            if (_observableValues.Count == 0) return;
-            _observableValues.RemoveAt(0);
-        }
-
-        public void UpdateLastItem()
-        {
-            var randomValue = _random.Next(1, 10);
-            _observableValues[_observableValues.Count - 1].Y = randomValue;
-        }
-
-        public void ReplaceRandomItem()
-        {
-            var randomValue = _random.Next(1, 10);
-            var randomIndex = _random.Next(0, _observableValues.Count - 1);
-            _observableValues[randomIndex] =
-                new ObservablePoint { X = _observableValues[randomIndex].X, Y = randomValue };
-        }
-
-        public void AddSeries()
-        {
-            //  for this sample only 5 series are supported.
-            if (Series.Count == 5) return;
-
-            Series.Add(
-                new LineSeries<int>
-                {
-                    Values = new List<int> { _random.Next(0, 10), _random.Next(0, 10), _random.Next(0, 10) }
-                });
-        }
-
-        public void RemoveLastSeries()
-        {
-            if (Series.Count == 1) return;
-
-            Series.RemoveAt(Series.Count - 1);
-        }
-
-        // The next commands are only to enable XAML bindings
-        // they are not used in the WinForms sample
-        public ICommand AddItemCommand => new Command(o => AddItem());
-        public ICommand RemoveItemCommand => new Command(o => RemoveFirstItem());
-        public ICommand UpdateItemCommand => new Command(o => UpdateLastItem());
-        public ICommand ReplaceItemCommand => new Command(o => ReplaceRandomItem());
-        public ICommand AddSeriesCommand => new Command(o => AddSeries());
-        public ICommand RemoveSeriesCommand => new Command(o => RemoveLastSeries());
+        Series.RemoveAt(Series.Count - 1);
     }
 }

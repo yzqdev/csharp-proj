@@ -1,18 +1,19 @@
-﻿using LiveChartsCore;
+﻿using System.Collections.Generic;
+using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
-using System.Collections.Generic;
+using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace ViewModelsSamples.Pies.Pushout
+namespace ViewModelsSamples.Pies.Pushout;
+
+[ObservableObject]
+public partial class ViewModel
 {
-    public class ViewModel
+    public ISeries[] Series { get; set; } =
     {
-        public IEnumerable<ISeries> Series { get; set; } = new List<ISeries>
-        {
-            new PieSeries<double> { Values = new List<double> { 3 }, Pushout = 8 },
-            new PieSeries<double> { Values = new List<double> { 3 }, Pushout = 8 },
-            new PieSeries<double> { Values = new List<double> { 3 }, Pushout = 8 },
-            new PieSeries<double> { Values = new List<double> { 2 }, Pushout = 8 },
-            new PieSeries<double> { Values = new List<double> { 5 }, Pushout = 40 }
-        };
-    }
+        new PieSeries<double> { Values = new List<double> { 3 }, Pushout = 4 },
+        new PieSeries<double> { Values = new List<double> { 3 }, Pushout = 4 },
+        new PieSeries<double> { Values = new List<double> { 3 }, Pushout = 4 },
+        new PieSeries<double> { Values = new List<double> { 2 }, Pushout = 4 },
+        new PieSeries<double> { Values = new List<double> { 5 }, Pushout = 30 }
+    };
 }

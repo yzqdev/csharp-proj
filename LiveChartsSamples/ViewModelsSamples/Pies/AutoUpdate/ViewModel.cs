@@ -1,73 +1,69 @@
-﻿using LiveChartsCore;
+﻿using System;
+using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using LiveChartsCore;
 using LiveChartsCore.Defaults;
 using LiveChartsCore.SkiaSharpView;
-using System;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
 
-namespace ViewModelsSamples.Pies.AutoUpdate
+namespace ViewModelsSamples.Pies.AutoUpdate;
+
+[ObservableObject]
+public partial class ViewModel
 {
-    public class ViewModel
+    private readonly Random _random = new();
+
+    public ViewModel()
     {
-        private Random random = new Random();
-
-        public ViewModel()
+        // Use ObservableCollections to let the chart listen for changes (or any INotifyCollectionChanged). // mark
+        Series = new ObservableCollection<ISeries>
         {
-            // using a collection that implements INotifyCollectionChanged as your series collection
-            // will allow the chart to update every time a series is added, removed, replaced or the whole list was cleared
-            // .Net already provides the System.Collections.ObjectModel.ObservableCollection class
-            Series = new ObservableCollection<ISeries>
+            // Use the ObservableValue or ObservablePoint types to let the chart listen for property changes // mark
+            // or use any INotifyPropertyChanged implementation // mark
+            new PieSeries<ObservableValue> { Values = new[] { new ObservableValue(2) } },
+            new PieSeries<ObservableValue> { Values = new[] { new ObservableValue(5) } },
+            new PieSeries<ObservableValue> { Values = new[] { new ObservableValue(3) } },
+            new PieSeries<ObservableValue> { Values = new[] { new ObservableValue(7) } },
+            new PieSeries<ObservableValue> { Values = new[] { new ObservableValue(4) } },
+            new PieSeries<ObservableValue> { Values = new[] { new ObservableValue(3) } }
+        };
+    }
+
+    public ObservableCollection<ISeries> Series { get; set; }
+
+    [ICommand]
+    public void AddSeries()
+    {
+        //  for this sample only 15 series are supported.
+        if (Series.Count == 15) return;
+
+        Series.Add(
+            new PieSeries<ObservableValue>
             {
-                // using object that implements INotifyPropertyChanged
-                // will allow the chart to update everytime a property in a point changes.
+                Values = new[] { new ObservableValue(_random.Next(1, 10)) }
+            });
+    }
 
-                // LiveCharts already provides the ObservableValue class
-                // notice you can plot any type, but you must let LiveCharts know how to handle it
-                // for more info please see:
-                // https://github.com/beto-rodriguez/LiveCharts2/blob/master/samples/ViewModelsSamples/General/UserDefinedTypes/ViewModel.cs#L22
-                new PieSeries<ObservableValue> { Values = new[] { new ObservableValue(2) } },
-                new PieSeries<ObservableValue> { Values = new[] { new ObservableValue(5) } },
-                new PieSeries<ObservableValue> { Values = new[] { new ObservableValue(3) } },
-                new PieSeries<ObservableValue> { Values = new[] { new ObservableValue(7) } },
-                new PieSeries<ObservableValue> { Values = new[] { new ObservableValue(4) } },
-                new PieSeries<ObservableValue> { Values = new[] { new ObservableValue(3) } }
-            };
-        }
-
-        public ObservableCollection<ISeries> Series { get; set; }
-
-        public void AddSeries()
+    [ICommand]
+    public void UpdateAll()
+    {
+        foreach (var series in Series)
         {
-            //  for this sample only 15 series are supported.
-            if (Series.Count == 15) return;
+            if (series.Values is null) continue;
 
-            Series.Add(
-                new PieSeries<ObservableValue> { Values = new[] { new ObservableValue(random.Next(1, 10)) } });
-        }
-
-        public void UpdateAll()
-        {
-            foreach (var series in Series)
+            foreach (var value in series.Values)
             {
-                foreach (var value in series.Values)
-                {
-                    var observableValue = (ObservableValue)value;
-                    observableValue.Value = random.Next(1, 10);
-                }
+                var observableValue = (ObservableValue)value;
+                observableValue.Value = _random.Next(1, 10);
             }
         }
+    }
 
-        public void RemoveLastSeries()
-        {
-            if (Series.Count == 1) return;
+    [ICommand]
+    public void RemoveSeries()
+    {
+        if (Series.Count == 1) return;
 
-            Series.RemoveAt(Series.Count - 1);
-        }
-
-        // The next commands are only to enable XAML bindings
-        // they are not used in the WinForms sample
-        public ICommand AddSeriesCommand => new Command(o => AddSeries());
-        public ICommand UpdateAllCommand => new Command(o => UpdateAll());
-        public ICommand RemoveSeriesCommand => new Command(o => RemoveLastSeries());
+        Series.RemoveAt(Series.Count - 1);
     }
 }

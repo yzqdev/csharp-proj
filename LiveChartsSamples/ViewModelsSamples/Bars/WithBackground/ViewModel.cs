@@ -1,35 +1,35 @@
-﻿using LiveChartsCore;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using SkiaSharp;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
-namespace ViewModelsSamples.Bars.WithBackground
+namespace ViewModelsSamples.Bars.WithBackground;
+
+[ObservableObject]
+public partial class ViewModel
 {
-    public class ViewModel
+    public ISeries[] Series { get; set; } =
     {
-        public List<ISeries> Series { get; set; } = new List<ISeries>
+        new ColumnSeries<double>
         {
-            new ColumnSeries<double>
-            {
-                Values = new ObservableCollection<double> { 10, 10, 10, 10, 10, 10, 10 },
-                Stroke = null,
-                Fill = new SolidColorPaint(new SKColor(30, 30, 30, 30)),
-                IgnoresBarPosition = true
-            },
-            new ColumnSeries<double>
-            {
-                Values = new ObservableCollection<double> { 3, 10, 5, 3, 7, 3, 8 },
-                Stroke = null,
-                Fill = new SolidColorPaint(SKColors.CornflowerBlue),
-                IgnoresBarPosition = true
-            }
-        };
+            IsHoverable = false, // disables the series from the tooltips // mark
+            Values = new double[] { 10, 10, 10, 10, 10, 10, 10 },
+            Stroke = null,
+            Fill = new SolidColorPaint(new SKColor(30, 30, 30, 30)),
+            IgnoresBarPosition = true
+        },
+        new ColumnSeries<double>
+        {
+            Values = new double[] { 3, 10, 5, 3, 7, 3, 8 },
+            Stroke = null,
+            Fill = new SolidColorPaint(SKColors.CornflowerBlue),
+            IgnoresBarPosition = true
+        }
+    };
 
-        public List<Axis> YAxes { get; set; } = new List<Axis>
-        {
-            new Axis { MinLimit = 0, MaxLimit = 10 }
-        };
-    }
+    public Axis[] YAxes { get; set; } =
+    {
+        new Axis { MinLimit = 0, MaxLimit = 10 }
+    };
 }

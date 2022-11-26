@@ -1,22 +1,30 @@
-﻿using LiveChartsCore;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
-using System.Collections.Generic;
 
-namespace ViewModelsSamples.Lines.Straight
+namespace ViewModelsSamples.Lines.Straight;
+
+[ObservableObject]
+public partial class ViewModel
 {
-    public class ViewModel
+    public ISeries[] Series { get; set; } =
     {
-        public List<ISeries> Series { get; set; } = new List<ISeries>
+        new LineSeries<double>
         {
-            new LineSeries<double>
-            {
-                Values = new List<double> { -2, -1, 3, 5, 3, 4, 6 },
-                Fill = null,
-                // use the line smoothness property to control the curve
-                // it goes from 0 to 1
-                // where 0 is a straight line and 1 the most curved
-                LineSmoothness = 0
-            }
-        };
-    }
+            Values = new double[] { 5, 0, 5, 0, 5, 0 },
+            Fill = null,
+            GeometrySize = 0,
+            // use the line smoothness property to control the curve
+            // it goes from 0 to 1
+            // where 0 is a straight line and 1 the most curved
+            LineSmoothness = 0 // mark
+        },
+        new LineSeries<double>
+        {
+            Values = new double[] { 7, 2, 7, 2, 7, 2 },
+            Fill = null,
+            GeometrySize = 0,
+            LineSmoothness = 1 // mark
+        }
+    };
 }

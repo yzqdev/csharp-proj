@@ -1,33 +1,41 @@
-<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <IsPackable>false</IsPackable>
+    <LangVersion>10.0</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Images\livecharts.png" />
     <None Remove="Quicksand-Regular.ttf" />
   </ItemGroup>
-	<ItemGroup>60090" />
-	</ItemGroup>
+
   <ItemGroup>
+
     <ProjectReference Include="..\ViewModelsSamples\ViewModelsSamples.csproj" />
   </ItemGroup>
-
- 
 
   <ItemGroup>
     <Resource Include="Images\livecharts.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Axes\Style\View.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Axes\LabelsFormat2\View.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Axes\Paging\View.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Axes\TimeSpanScaled\View.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Axes\Logaritmic\View.xaml.cs">
+    <Compile Update="Axes\Logarithmic\View.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Axes\LabelsRotation\View.xaml.cs">
@@ -72,9 +80,6 @@
     <Compile Update="Bars\RowsWithLabels\View.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Bars\States\View.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="Bars\WithBackground\View.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -99,13 +104,25 @@
     <Compile Update="Events\Polar\View.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="General\ConditionalDraw\View.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="General\ChartToImage\View.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Events\Cartesian\View.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="General\MultiThreading2\View.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="General\MultiThreading\View.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="General\VisualElements\View.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="General\Sections2\View.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="General\Sections\View.xaml.cs">
@@ -180,6 +197,15 @@
     <Compile Update="Pies\Basic\View.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Polar\Test\View.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Polar\Coordinates\View.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Polar\RadialArea\View.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Polar\Basic\View.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -225,6 +251,9 @@
     <Compile Update="StepLines\Zoom\View.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Test\MotionCanvasDispose\UserControl1.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="VisualTest\DataTemplate\View.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -240,11 +269,23 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="Axes\Style\View.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Axes\LabelsFormat2\View.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Axes\Paging\View.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Axes\TimeSpanScaled\View.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Axes\Logaritmic\View.xaml">
+    <Page Update="Axes\Logarithmic\View.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
@@ -304,10 +345,6 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Bars\States\View.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="Bars\WithBackground\View.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
@@ -340,6 +377,10 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="General\ConditionalDraw\View.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="General\ChartToImage\View.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
@@ -348,7 +389,19 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="General\MultiThreading2\View.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="General\MultiThreading\View.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="General\VisualElements\View.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="General\Sections2\View.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
@@ -400,6 +453,9 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Lines\XY\View.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
     <Page Update="Lines\Padding\View.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
@@ -427,6 +483,22 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Pies\Gauge2\View.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="Pies\Gauge3\View.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="Pies\Gauge5\View.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pies\Gauge4\View.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="Pies\Gauge1\View.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
     <Page Update="Pies\Gauges\View.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
@@ -451,6 +523,19 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Pies\Basic\View.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Polar\Test\View.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Polar\Coordinates\View.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Polar\RadialArea\View.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
@@ -514,6 +599,22 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Test\ChangeSeriesInstance\View.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Test\Dispose\View.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="Test\MotionCanvasDispose\UserControl1.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Test\MotionCanvasDispose\View.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="VisualTest\DataTemplate\View.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
@@ -531,5 +632,8 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-
+	<ItemGroup>
+		<PackageReference Include="LiveChartsCore.SkiaSharpView" Version="2.0.0-beta.600" />
+		<PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-beta.600" />
+	</ItemGroup>
 </Project>
