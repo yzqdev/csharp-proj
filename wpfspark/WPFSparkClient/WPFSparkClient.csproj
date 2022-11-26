@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFrameworks>netcoreapp3.1;net5.0-windows</TargetFrameworks>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+
+  <PropertyGroup>
+    <VersionPrefix>1.5.0</VersionPrefix>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <ApplicationIcon>WPFSpark.ico</ApplicationIcon>
+  </PropertyGroup> 
+
+  <ItemGroup>
+    <PackageReference Include="WPFSpark" Version="1.5.0" />
+  </ItemGroup> 
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="taskkill /F /IM $(TargetName).exe 2&gt;&amp;1 | exit /B 0" />
+  </Target>
+</Project>
