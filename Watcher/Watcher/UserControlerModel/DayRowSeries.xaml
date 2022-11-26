@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="Watcher.UserControlerModel.DayRowSeries"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Watcher.UserControlerModel"
+             xmlns:wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             mc:Ignorable="d" 
+             d:DesignHeight="280" d:DesignWidth="980"
+             Loaded="DayRowSeries_OnLoaded"
+             IsVisibleChanged="DayRowSeries_OnIsVisibleChanged"
+             >
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel Width="980" Height="280" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Name="DailyShow" >
+            <Grid Width="500" Height="280">
+                <wpf:PieChart  Height="260"  Name="DailyDataSeries" LegendLocation="Bottom" >
+
+                </wpf:PieChart>
+            </Grid>
+            <Grid>
+                <ListView Width="480" Height="280" Name="DailyListView">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel  Height="25" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <StackPanel Margin="3 0 3 0" Height="25" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Width="90">
+                                    <TextBlock  TextAlignment="Left"  Height="18" Text="共运行"></TextBlock>
+                                    <TextBlock   TextAlignment="Left"  Height="18" Text="{Binding SpendTime}"></TextBlock>
+                                    <TextBlock   TextAlignment="Left"  Height="18"  Text="秒" ></TextBlock>
+                                </StackPanel>
+                                <Image Height="18" Source="{Binding IconPath}" Stretch="Fill" Width="18" VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
+                                <TextBlock Margin="10 0 0 0" Height="18" Text="{Binding ProcessName}" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</UserControl>
