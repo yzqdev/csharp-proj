@@ -1,0 +1,1 @@
+See [here](https://mathewsachin.github.io/Captura/code_of_conduct).

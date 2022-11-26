@@ -1,0 +1,44 @@
+version: 0.0.{build}
+
+branches:
+  except:
+    - l10n_master # Crowdin
+    - gh-pages # Website
+
+image: Visual Studio 2017
+
+configuration:
+- Debug
+- Release
+
+# Used in build.cake
+environment:
+  imgur_client_id:
+    secure: Y/2WUSisk7oLSQNY1YzUxw==
+  choco_key:
+    secure: h5jOVeiDmjLnF3EotkOhBFJharX/9TWx6OWykiXn30pWSIfVjSvAaCJM1Y48zjXr
+  git_key:
+    secure: uhvhrrZd7L8MK4CrDGkM1A==
+
+cache:
+  - temp\bass
+  - temp\bass.zip
+  - temp\bassmix
+  - temp\bassmix.zip
+
+install:
+  - dotnet tool install -g Cake.Tool --version 0.30.0
+
+# Build using Cake
+build_script:
+  - ps: >-
+      if ($env:APPVEYOR_REPO_TAG_NAME -ne $null)
+      {
+        dotnet-cake --target=CI --configuration=$env:CONFIGURATION --tag=$env:APPVEYOR_REPO_TAG_NAME
+      }
+      else
+      {
+        dotnet-cake --target=CI --configuration=$env:CONFIGURATION
+      }
+
+test: off
