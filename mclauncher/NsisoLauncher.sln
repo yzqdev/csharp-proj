@@ -7,7 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NsisoLauncher", "NsisoLaunc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NsisoLauncher.Test", "NsisoLauncher.Test\NsisoLauncher.Test.csproj", "{99AF489E-FD2D-4E64-B470-70ADA4E3E591}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NsisoLauncherCore", "NsisoLauncherCore\NsisoLauncherCore.csproj", "{1B9925A6-00CA-46E6-9596-6ECAB977ECAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NsisoLauncherCore", "NsisoLauncherCore\NsisoLauncherCore.csproj", "{1B9925A6-00CA-46E6-9596-6ECAB977ECAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NsisoCmd", "NsisoCmd\NsisoCmd.csproj", "{23E62F91-C35F-430F-971E-6C1526CCC04A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NsisoTest", "NsisoTest\NsisoTest.csproj", "{EF88214C-60A6-4EFA-A3EA-65A050BC90E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +31,14 @@ Global
 		{1B9925A6-00CA-46E6-9596-6ECAB977ECAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B9925A6-00CA-46E6-9596-6ECAB977ECAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B9925A6-00CA-46E6-9596-6ECAB977ECAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23E62F91-C35F-430F-971E-6C1526CCC04A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23E62F91-C35F-430F-971E-6C1526CCC04A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23E62F91-C35F-430F-971E-6C1526CCC04A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23E62F91-C35F-430F-971E-6C1526CCC04A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF88214C-60A6-4EFA-A3EA-65A050BC90E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF88214C-60A6-4EFA-A3EA-65A050BC90E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF88214C-60A6-4EFA-A3EA-65A050BC90E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF88214C-60A6-4EFA-A3EA-65A050BC90E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

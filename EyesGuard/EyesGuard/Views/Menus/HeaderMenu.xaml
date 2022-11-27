@@ -68,8 +68,11 @@
                 Icon="{StaticResource EyesGuard.QuestionMark}" />
             <MenuItem Click="Resources_Click" Header="{lang:LocalizedString 'EyesGuard.HeaderMenu.Help.Resources'}" />
             <Separator />
-            <MenuItem Click="Feedback_Menu_Click" Header="{lang:LocalizedString 'EyesGuard.HeaderMenu.Help.SendFeedback'}" Icon="{StaticResource EyesGuard.Feedback}" />
-            <Separator/>
+            <MenuItem
+                Click="Feedback_Menu_Click"
+                Header="{lang:LocalizedString 'EyesGuard.HeaderMenu.Help.SendFeedback'}"
+                Icon="{StaticResource EyesGuard.Feedback}" />
+            <Separator />
             <MenuItem
                 Click="Donate_Click"
                 Header="{lang:LocalizedString 'EyesGuard.HeaderMenu.Help.Donate'}"

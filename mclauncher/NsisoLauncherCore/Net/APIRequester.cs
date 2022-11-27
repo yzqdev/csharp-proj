@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -29,7 +30,9 @@ namespace NsisoLauncherCore.Net
                 var httpClientHandler = new HttpClientHandler {
                     ServerCertificateCustomValidationCallback = (message, certificate2, arg3, arg4) => true
                 };
-                using HttpClient client = new(httpClientHandler);
+                HttpClient client = new(httpClientHandler);
+                Debug.WriteLine("获取url");
+                Debug.WriteLine(uri);
                 return await client.GetStringAsync(uri);
             }
             catch (TaskCanceledException)
@@ -42,10 +45,10 @@ namespace NsisoLauncherCore.Net
         {
             try
             {
-                using (HttpClient client = new HttpClient())
-                {
+                HttpClient client = new HttpClient();
+                
                     return await client.PostAsync(uri, new FormUrlEncodedContent(arg));
-                }
+                
             }
             catch (TaskCanceledException)
             {

@@ -27,10 +27,11 @@ namespace NsisoLauncherCore.Net.Tools
                     return url;
 
                 case DownloadSource.BMCLAPI:
-                    Dictionary<string, string> dic = new Dictionary<string, string>();
-                    dic.Add(@"https://launcher.mojang.com/", BMCLUrl);
-                    dic.Add(@"https://launchermeta.mojang.com/", BMCLUrl);
-                    dic.Add(@"http://files.minecraftforge.net/maven/", BMCLLibrariesURL);
+                    Dictionary<string, string> dic = new Dictionary<string, string> {
+                        { @"https://launcher.mojang.com/", BMCLUrl },
+                        { @"https://launchermeta.mojang.com/", BMCLUrl },
+                        { @"http://files.minecraftforge.net/maven/", BMCLLibrariesURL }
+                    };
                     return ReplaceURLByDic(url, dic);
 
                 default:

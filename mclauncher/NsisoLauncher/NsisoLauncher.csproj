@@ -6,6 +6,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
+	  <Nullable>enable</Nullable>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
@@ -43,10 +44,10 @@
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
   </PropertyGroup>
    
-  <ItemGroup>
+  <!--<ItemGroup>
     <Reference Include="Microsoft.Build.Tasks.v4.0" />
     <Reference Include="System.Net" />
-  </ItemGroup>
+  </ItemGroup>-->
   <ItemGroup>
     <Resource Include="Resource\defaultIcon.png" />
     <Resource Include="Resource\icon.ico" />
@@ -56,12 +57,9 @@
   </ItemGroup>
   
   <ItemGroup>
-    
+	  <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-beta.601" />
     <PackageReference Include="Gu.Wpf.Media">
       <Version>0.5.1</Version>
-    </PackageReference>
-    <PackageReference Include="LiveCharts.Wpf">
-      <Version>0.9.7</Version>
     </PackageReference>
     <PackageReference Include="MahApps.Metro">
       <Version>2.4.9</Version>
@@ -74,10 +72,10 @@
       <Version>1.1.39</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>13.0.1</Version>
+      <Version>13.0.2</Version>
     </PackageReference>
     <PackageReference Include="SharpZipLib">
-      <Version>1.3.3</Version>
+      <Version>1.4.1</Version>
     </PackageReference>
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
      

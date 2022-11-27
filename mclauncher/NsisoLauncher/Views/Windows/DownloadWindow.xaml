@@ -5,7 +5,7 @@
     xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
     xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+    xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:NsisoLauncher.ViewModels"
     Title="DownloadWindow"
@@ -86,12 +86,8 @@
             x:Name="plotter"
             Grid.Row="1"
             Margin="10,10,10,44"
-            DataTooltip="{x:Null}"
-            DisableAnimations="True"
-            Hoverable="False"
-            LegendLocation="Right"
             Series="{Binding ChartSeries}">
-            <lvc:CartesianChart.AxisY>
+            <!--<lvc:CartesianChart.AxisY>
                 <lvc:Axis
                     x:Name="YAxis"
                     LabelFormatter="{Binding YFormatter}"
@@ -99,7 +95,7 @@
             </lvc:CartesianChart.AxisY>
             <lvc:CartesianChart.AxisX>
                 <lvc:Axis ShowLabels="False" />
-            </lvc:CartesianChart.AxisX>
+            </lvc:CartesianChart.AxisX>-->
         </lvc:CartesianChart>
         <ProgressBar
             x:Name="progressBar"

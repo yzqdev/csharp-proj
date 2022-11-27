@@ -1,5 +1,4 @@
-﻿using LiveCharts;
-using LiveCharts.Wpf;
+﻿using LiveChartsCore.SkiaSharpView.WPF;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using NsisoLauncherCore.Net;

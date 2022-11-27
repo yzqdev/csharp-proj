@@ -23,7 +23,7 @@ namespace NsisoLauncher.Views.Windows
     /// </summary>
     public partial class NewDownloadTaskWindow : MetroWindow
     {
-        ObservableCollection<JWVersion> verList = new ObservableCollection<JWVersion>();
+        ObservableCollection<JWVersion> verList = new();
         ObservableCollection<JWForge> forgeList = new ObservableCollection<JWForge>();
         ObservableCollection<JWLiteloader> liteloaderList = new ObservableCollection<JWLiteloader>();
 

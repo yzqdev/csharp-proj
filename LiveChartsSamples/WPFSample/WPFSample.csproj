@@ -633,6 +633,7 @@
     </Page>
   </ItemGroup>
 	<ItemGroup>
+		 
 		<PackageReference Include="LiveChartsCore.SkiaSharpView" Version="2.0.0-beta.600" />
 		<PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-beta.600" />
 	</ItemGroup>
