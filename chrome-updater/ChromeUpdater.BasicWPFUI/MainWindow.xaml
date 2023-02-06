@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:ChromeUpdater.BasicWPFUI"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:updater="clr-namespace:ChromeUpdater.Core;assembly=ChromeUpdater.Core"
+    xmlns:updater="clr-namespace:ChromeUpdater.Model;assembly=ChromeUpdater.Model"
     Title="{Binding Title}"
     Width="813"
     Height="500"

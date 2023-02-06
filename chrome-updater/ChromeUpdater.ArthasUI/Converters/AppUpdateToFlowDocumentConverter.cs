@@ -10,6 +10,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using ChromeUpdater.Core;
 using ChromeUpdater.Core.Utils;
+using ChromeUpdater.Model;
 
 namespace ChromeUpdater.ArthasUI.Converters
 {

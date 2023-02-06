@@ -15,6 +15,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arthas", "Arthas\Arthas.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChromeUpdater.MahAppsUI", "ChromeUpdater.MahAppsUI\ChromeUpdater.MahAppsUI.csproj", "{5CBC2D0E-D030-4086-951F-BABE4E48F022}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChromeApi", "ChromeApi\ChromeApi.csproj", "{D95F89A9-66B4-4C68-B152-C29148CAE744}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChromeUpdater.Model", "ChromeUpdater.Model\ChromeUpdater.Model.csproj", "{85005B8E-D8F8-4067-9D4C-2036086AFA69}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +49,14 @@ Global
 		{5CBC2D0E-D030-4086-951F-BABE4E48F022}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CBC2D0E-D030-4086-951F-BABE4E48F022}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CBC2D0E-D030-4086-951F-BABE4E48F022}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D95F89A9-66B4-4C68-B152-C29148CAE744}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D95F89A9-66B4-4C68-B152-C29148CAE744}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D95F89A9-66B4-4C68-B152-C29148CAE744}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D95F89A9-66B4-4C68-B152-C29148CAE744}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85005B8E-D8F8-4067-9D4C-2036086AFA69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85005B8E-D8F8-4067-9D4C-2036086AFA69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85005B8E-D8F8-4067-9D4C-2036086AFA69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85005B8E-D8F8-4067-9D4C-2036086AFA69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

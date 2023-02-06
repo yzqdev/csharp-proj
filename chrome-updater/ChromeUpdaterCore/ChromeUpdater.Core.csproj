@@ -31,4 +31,7 @@
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ChromeUpdater.Model\ChromeUpdater.Model.csproj" />
+  </ItemGroup>
 </Project>

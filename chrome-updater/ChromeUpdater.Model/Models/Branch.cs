@@ -1,5 +1,4 @@
-﻿namespace ChromeUpdater.Core
-{
+﻿namespace ChromeUpdater.Model {
     public enum Branch
     {
         Stable,

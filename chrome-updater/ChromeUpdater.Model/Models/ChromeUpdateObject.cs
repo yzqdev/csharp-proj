@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ChromeUpdater.Core
-{
+namespace ChromeUpdater.Model {
     public class ChromeUpdate
     {
         public AppUpdateWithArch Stable { get; set; }

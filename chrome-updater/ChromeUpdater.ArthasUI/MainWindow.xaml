@@ -4,10 +4,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:arthas="clr-namespace:Arthas.Controls;assembly=Arthas"
     xmlns:converters="clr-namespace:ChromeUpdater.ArthasUI.Converters"
+    xmlns:core="clr-namespace:ChromeUpdater.Core;assembly=ChromeUpdater.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:ChromeUpdater.ArthasUI"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:updater="clr-namespace:ChromeUpdater.Core;assembly=ChromeUpdater.Core"
+    xmlns:updater="clr-namespace:ChromeUpdater.Model;assembly=ChromeUpdater.Model"
     Name="WndMain"
     Title="{Binding Title}"
     Width="813"
@@ -21,7 +22,7 @@
     mc:Ignorable="d">
 
     <arthas:MetroWindow.DataContext>
-        <updater:ChromeUpdaterCore />
+        <core:ChromeUpdaterCore />
     </arthas:MetroWindow.DataContext>
     <arthas:MetroWindow.Menu>
         <arthas:MetroTitleMenu>

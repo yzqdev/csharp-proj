@@ -22,6 +22,7 @@ using ChromeUpdater.Core.Utils;
 using SevenZip;
 using System.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
+using ChromeUpdater.Model;
 
 namespace ChromeUpdater.Core
 {
@@ -270,6 +271,7 @@ namespace ChromeUpdater.Core
             IsBusy = true;
             chromeUpdate = await GetUpdateFromShuax();
             UpdateInfo = chromeUpdate?.GetUpdate(BranchSelected, IsX64Selected);
+            Debug.WriteLine(UpdateInfo.ToString());
             IsBusy = false;
         }));
 
@@ -611,7 +613,11 @@ namespace ChromeUpdater.Core
             var hc = new HttpClient { Timeout = TimeSpan.FromSeconds(3) };
             try
             {
-                return SimpleJson.SimpleJson.DeserializeObject<ChromeUpdate>(await hc.GetStringAsync("https://api.pzhacm.org/iivb/cu.json"));
+                var oldStr = "https://api.pzhacm.org/iivb/cu.json";
+                var newStr = "http://localhost:5209/ChromeVersion/version";
+                var res = await hc.GetStringAsync(oldStr);
+                Debug.Write(res);
+                return SimpleJson.SimpleJson.DeserializeObject<ChromeUpdate>(res);
             }
             catch
             {
