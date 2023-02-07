@@ -8,6 +8,16 @@ namespace ChromeUpdater.Model {
         public AppUpdateWithArch Dev { get; set; }
         public AppUpdateWithArch Canary { get; set; }
 
+        public ChromeUpdate(AppUpdateWithArch stable, AppUpdateWithArch beta, AppUpdateWithArch dev, AppUpdateWithArch canary) {
+            Stable = stable;
+            Beta = beta;
+            Dev = dev;
+            Canary = canary;
+        }
+
+        public ChromeUpdate() {
+        }
+
         public Dictionary<string, AppUpdateWithArch> ToDictionary()
         {
             var dc = new Dictionary<string, AppUpdateWithArch>();
@@ -57,12 +67,35 @@ namespace ChromeUpdater.Model {
     
     public class AppUpdateWithArch
     {
+        public AppUpdateWithArch() {
+        }
+
+        public AppUpdateWithArch(AppUpdate x64, AppUpdate x86) {
+            this.x64 = x64;
+            this.x86 = x86;
+        }
+
         public AppUpdate x64 { get; set; }
         public AppUpdate x86 { get; set; }
     }
 
     public class AppUpdate
     {
+        public AppUpdate( ) {
+          
+        }
+
+        public AppUpdate(string[] url, long size, decimal time, string version, string name, string cdn, string sha1, string sha256) {
+            this.url = url;
+            this.size = size;
+            this.time = time;
+            this.version = version;
+            this.name = name;
+            this.cdn = cdn;
+            this.sha1 = sha1;
+            this.sha256 = sha256;
+        }
+
         public string[] url { get; set; }
         public long size { get; set; }
         public decimal time { get; set; }

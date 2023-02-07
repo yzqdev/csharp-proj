@@ -584,8 +584,7 @@ namespace ChromeUpdater.Core
                 var name = package.Attributes["name"].Value;
                 var hash_sha256 = package.Attributes["hash_sha256"].Value;
                 var hash = package.Attributes["hash"].Value;
-                cu = new AppUpdate
-                {
+                cu = new AppUpdate {
                     url = (from XmlNode u in urls.ChildNodes select u.Attributes["codebase"].Value + name).ToArray(),
                     size = long.Parse(size),
                     name = name,
@@ -614,7 +613,8 @@ namespace ChromeUpdater.Core
             try
             {
                 var oldStr = "https://api.pzhacm.org/iivb/cu.json";
-                var newStr = "http://localhost:5209/ChromeVersion/version";
+                //var newStr = "http://localhost:5209/ChromeVersion/version";
+                var newStr = "http://localhost:8550/common/chromeVersion";
                 var res = await hc.GetStringAsync(oldStr);
                 Debug.Write(res);
                 return SimpleJson.SimpleJson.DeserializeObject<ChromeUpdate>(res);
