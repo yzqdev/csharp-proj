@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Drawing;
-using System.Runtime.Versioning;
 using System.Threading;
 using System.Windows.Forms;
 
 namespace TopMostFriend {
-    [SupportedOSPlatform("Windows")]
     public class FirstRunWindow : Form {
         public static void Display() {
-            using FirstRunWindow firstRun = new();
-            firstRun.ShowDialog();
+            using(FirstRunWindow firstRun = new FirstRunWindow())
+                firstRun.ShowDialog();
         }
 
         private bool CanClose = false;

@@ -28,8 +28,7 @@ namespace TopMostFriend {
 
             int tabIndex = 0;
 
-            Button closeButton = new()
-            {
+            Button closeButton = new Button {
                 Text = Locale.String(@"AboutClose"),
                 Size = new Size(BUTTON_WIDTH, BUTTON_HEIGHT),
                 TabIndex = ++tabIndex,

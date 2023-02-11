@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net7.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWindowsForms>true</UseWindowsForms>
@@ -16,10 +16,6 @@
     <ApplicationIcon>TopMostFriend.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="Languages\zh-cn.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Languages\zh-cn.xml" />
     <EmbeddedResource Include="Languages\en-GB.xml" />
     <EmbeddedResource Include="Languages\nl-NL.xml" />
     <Content Include="TopMostFriend.ico" />
@@ -37,5 +33,6 @@
   </ItemGroup>
   <ItemGroup>
    
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
   </ItemGroup>
 </Project>

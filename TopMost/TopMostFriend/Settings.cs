@@ -2,14 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Versioning;
 using System.Text;
 
 namespace TopMostFriend {
-    [SupportedOSPlatform("Windows")]
     public static class Settings {
         private const string ROOT = @"Software\flash.moe\TopMostFriend";
-         
+
         private static RegistryKey GetRoot() {
             RegistryKey root = Registry.CurrentUser.OpenSubKey(ROOT, true);
 
@@ -18,7 +16,7 @@ namespace TopMostFriend {
 
             return root;
         }
-         
+
         public static T Get<T>(string name, T fallback = default) {
             try {
                 return (T)Convert.ChangeType(GetRoot().GetValue(name, fallback), typeof(T));
@@ -26,7 +24,7 @@ namespace TopMostFriend {
                 return fallback;
             }
         }
-     
+
         public static string[] Get(string name, string[] fallback = null) {
             if(!(GetRoot().GetValue(name, null) is byte[] buffer))
                 return fallback;
@@ -34,7 +32,7 @@ namespace TopMostFriend {
             List<string> strings = new List<string>();
 
             using (MemoryStream src = new MemoryStream(buffer))
-            using (MemoryStream ms = new()) {
+            using (MemoryStream ms = new MemoryStream()) {
                 int b;
 
                 for(; ; ) {
@@ -53,7 +51,7 @@ namespace TopMostFriend {
 
             return strings.ToArray();
         }
-      
+
         public static bool Has(string name) {
             try {
                 GetRoot().GetValueKind(name);
@@ -62,7 +60,7 @@ namespace TopMostFriend {
                 return false;
             }
         }
-       
+
         public static void Set(string name, object value) {
             if(value == null) {
                 Remove(name);

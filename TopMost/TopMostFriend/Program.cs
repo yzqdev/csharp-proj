@@ -95,10 +95,12 @@ namespace TopMostFriend {
 
             if(Environment.OSVersion.Version.Major >= 6)
                 Win32.SetProcessDPIAware();
+            JsonHelper.WriteConfig("nm","apple");
+            Application.EnableVisualStyles();
+            Application.SetHighDpiMode(HighDpiMode.SystemAware);
+            Application.SetCompatibleTextRenderingDefault(false);
 
-            ApplicationConfiguration.Initialize();
-
-            if (args.Contains(@"--reset-admin"))
+            if(args.Contains(@"--reset-admin"))
                 Settings.Remove(ALWAYS_ADMIN_SETTING);
 
             string cliToggleOld = args.FirstOrDefault(a => a.StartsWith(@"--hwnd="))?.Substring(7);
