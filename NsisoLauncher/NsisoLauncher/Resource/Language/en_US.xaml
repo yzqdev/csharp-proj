@@ -122,7 +122,7 @@
 
     <sys:String x:Key="String.Settingwindow.Title">设置窗口</sys:String>
     <sys:String x:Key="String.Settingwindow.Env">全局设置</sys:String>
-    <!-- language-->
+    <!--  language  -->
     <sys:String x:Key="String.Settingwindow.Env.LangSelect">语言选择</sys:String>
     <sys:String x:Key="String.Settingwindow.Env.LangLabel">语言</sys:String>
     <sys:String x:Key="String.Settingwindow.Env.Java">Java设置</sys:String>
